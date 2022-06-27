@@ -1,0 +1,60 @@
+<h1>제목</h1>
+{{blog_detail.title}}
+
+<h2>날짜</h2>
+{{blog_detail.date}}
+
+<h3>본문</h3>
+{{blog_detail.body}}
+
+<h3>작성자 닉네임</h3>
+{{blog_detail.writer.nickname}}
+
+<h3>작성자 MBTI</h3>
+{{blog_detail.writer.mbti}}
+
+<br>
+
+{% if blog_detail.writer == request.user %}
+<button>
+    <a href = "{% url 'update' blog_detail.id %}">제목, 본문 수정하기</a>
+</button>
+{% endif %}
+
+
+<form method="POST" action="{% url 'create_comment' blog_detail.id %}"> <!--create_comment라는 url로 넘어감-->
+  {% csrf_token %}
+  {{ comment_form }}
+  <input type="submit">  <!--제출버틍-->
+</form>
+
+<!-- delete_comment comment -->
+
+
+{% for comment in blog_detail.comment_set.all %}
+{{ comment }}
+{% if comment.post2.id == request.user.id %} <!--현재 로그인 되어있는 유저가 댓글을 작성한 유저와 다른경우 댓글을 삭제를 못하도록 버튼을 생성x -->
+
+{% if blog_detail.writer == request.user %}
+<button>
+    <a href = "{% url 'update_comment' blog_detail.id comment.id %}">댓글 수정</a>
+</button>
+{% endif %}
+
+<a href = "{% url 'delete_comment' blog_detail.id comment.id %}">댓글 삭제</a>
+{% endif %}
+<p>댓글 작성자 : {{ comment.post2.nickname }}</p>
+<p>댓글 작성자의 MBTI : {{ comment.post2.mbti }}</p>
+<hr>
+{% endfor %}
+
+
+
+<!-- {{ comment_form.nickname }} -->
+<!-- {{comment_form.mbti}} -->
+
+{% if blog_detail.writer == request.user %}   <!--현재 로그인 되어있는 유저가 개시글을 작성한 유저와 다른경우 게시글 삭제를 못하도록 버튼을 생성x -->
+<button>
+<a href = "{% url 'delete_board' blog_detail.id %}">게시글 삭제</a>
+</button>
+{% endif %}

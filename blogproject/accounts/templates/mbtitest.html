@@ -1,0 +1,20 @@
+<form action = "{% url 'result' %}" method = "POST">
+    {% csrf_token %}
+    사람들과의 만남에서 에너지를 얻는다.
+    <input type = 'radio' name = 'E' value = 'E'> yes  <!--같은 name 값을 가진 것중에 하나를 선택-->  
+    <input type = 'radio' name = 'E' value = 'I'> no
+    <br>
+    나는 평소에 상상을 많이 하지 않는다.
+    <input type = 'radio' name = 'S' value = 'S'>yes
+    <input type = 'radio' name = 'S' value = 'N'>No
+    <br>
+    나는 슬픈 영화를 볼 때 딱히 눈물을 흘리지 않는다.
+    <input type = 'radio' name = 'T', value = 'T'>yes
+    <input type = 'radio', name = 'T', value = 'F'>No
+    <br>
+    나는 매년 다이어리를 꾸준히 쓰는 편이다.
+    <input type = 'radio' name = 'J' value = 'J'>yes
+    <input type = 'radio' name = 'J' value = 'P'>no
+    <br>
+    <input type= 'submit' value =  "검사 결과 확인하기">
+</form>

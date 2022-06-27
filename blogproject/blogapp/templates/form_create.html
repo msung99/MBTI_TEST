@@ -1,0 +1,11 @@
+<h1>개시글 작성 Page</h1>
+<form action= "{% url 'formcreate' %}" method="POST", enctype= "multipart/form-data" >
+    {% csrf_token %}
+    
+    <!--render의 세번째 인자의 value는 중괄호2개로 찍어낼수있다-->
+    <table>
+        {{form.as_table}} 
+        <!--as_ul 하면 ul태그로 감싸진것처럼 보여짐-->
+    </table>
+    <input type="submit" value="새 글 생성하기">
+</form>
